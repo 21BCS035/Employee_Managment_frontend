@@ -26,7 +26,44 @@ const createEmployee = async(employee)=>{
   }
 }
 
+const getEmployee = async(id)=>{
+  try{
+       
+    console.log(id);
+    const response = await axios.get(`${base_url}/${id}`);
+    console.log(response);
+    return response.data;
+
+  }catch(error){
+    console.error("Error fetching employees:", error);
+    throw error; 
+  }
+}
+
+const updateEmployee = async (employee) => {
+  const response = await axios.put(
+    `${base_url}/updateEmployee/${employee.id}`,
+    {
+      firstname: employee.employeeData.firstname,
+      lastname: employee.employeeData.lastname,
+      email: employee.employeeData.email,
+      
+    }
+    
+  );
+  return response.data;
+}
+
+const deleteEmployee = async (id) => {
+  const response = await axios.delete(`${base_url}/deleteEmployee/${id}`);
+
+  return response.data;
+};
+
 export const EmployeeService = {
   getEmployees,
   createEmployee,
+  getEmployee,
+  updateEmployee,
+  deleteEmployee
 };
